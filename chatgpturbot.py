@@ -1,15 +1,18 @@
 import discord
 from discord import app_commands
-from dotenv import load_dotenv
 import openai
 import requests
 import os
-import docx2txt  # Para incluir el prompt en un doc independiente
+import myprompts
+from dotenv import load_dotenv
 
 
 # initialize memory
-memory1 = docx2txt.process('prompt-npbot.docx')
-memory1 = memory1.replace('\r', '').replace('\n', '\n')
+memory1 = myprompts.myprompt1
+
+"""
+memory2 = myprompts.myprompt2
+"""
 
 
 # initialize discord client
@@ -52,7 +55,7 @@ async def chat(interaction: discord.Interaction, *, message: str):
     await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
     return
 
-
+"""
 @client.tree.command(name="attack", description="Hackear a El Ordenador")
 async def chat(interaction: discord.Interaction, *, message: str):
     global memory2
@@ -70,6 +73,7 @@ async def chat(interaction: discord.Interaction, *, message: str):
     user = interaction.user.mention
     await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
     return
+"""
 
 
 # run the bot
