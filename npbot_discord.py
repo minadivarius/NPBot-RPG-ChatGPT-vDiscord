@@ -48,14 +48,12 @@ async def on_ready():
 async def chat(interaction: discord.Interaction, *, message: str):
     global chat_history
     global bot_context
-    notes = collect_notes()
     await interaction.response.send_message("Escribiendo...", ephemeral=True, delete_after=3)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=1.1,
         messages=[
             {"role": "system", "content": f"{bot_context}"},
-            {"role": "assistant", "content": f"{notes}"},
             {"role": "user", "content": chat_history},
             {"role": "user", "content": message}
         ]
