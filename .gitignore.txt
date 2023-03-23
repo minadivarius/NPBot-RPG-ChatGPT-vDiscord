@@ -1,3 +1,5 @@
+copiar-comandos.txt
+
 .tmp.drivedownload
 
 .tmp.driveupload
