@@ -1,6 +1,6 @@
 # NPBot - Discord Version
 
-*Más información del creador del bot original en su  [wiki](https://github.com/tplesetz/chatgpt-turbo-discord-bot/wiki).*
+*Más información del creador del bot original en su [wiki](https://github.com/tplesetz/chatgpt-turbo-discord-bot/wiki).*
 
 El siguiente bot ha sido adaptado para su uso como PNJ para rol y larp. A continuación traduciré y ampliaré la información para utilizarlo paso a paso, por lo que no son necesarios conocimientos de programación.
 
