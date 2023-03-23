@@ -1,3 +1,0 @@
-docker build -t npbot_discord .
-
-docker
