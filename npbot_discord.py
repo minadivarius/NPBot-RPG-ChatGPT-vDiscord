@@ -1,21 +1,26 @@
 import discord
 from discord import app_commands
+from dotenv import load_dotenv
 import openai
 import requests
 import os
+from mdtojson import collect_notes
+import logging
 import mycontext
-from dotenv import load_dotenv
 
 
 # initialize memory
-memory1 = mycontext.prompt1
+chat_history = "Eres El Ordenador"
 
-"""
-memory2 = mycontext.prompt2
-"""
+# initialize log
+logging.basicConfig(filename='debug.log', level=logging.INFO)
 
 
+# initialize bot context
+bot_context = mycontext.prompt1
 # initialize discord client
+
+
 class aclient(discord.Client):
     def __init__(self) -> None:
         intents = discord.Intents.default()
@@ -29,49 +34,75 @@ class aclient(discord.Client):
 # pass discord client into a subclass
 client = aclient()
 
-
 # sync discord application commands on bot startup
+
+
 @client.event
 async def on_ready():
     await client.tree.sync()
 
-
 # wait for use of /chat command
+
+
 @client.tree.command(name="chat", description="Hablar con El Ordenador")
 async def chat(interaction: discord.Interaction, *, message: str):
-    global memory1
+    global chat_history
+    global bot_context
+    notes = collect_notes()
     await interaction.response.send_message("Escribiendo...", ephemeral=True, delete_after=3)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        temperature=1.2,
+        temperature=1.1,
         messages=[
-            {"role": "assistant", "content": memory1},
+            {"role": "system", "content": f"{bot_context}"},
+            {"role": "assistant", "content": f"{notes}"},
+            {"role": "user", "content": chat_history},
             {"role": "user", "content": message}
         ]
     )
+    chat_history += message + "\n"
     response = response['choices'][0]['message']['content']
-    memory1 += message + "\n"
+    # Log a message
+    logging.info(response)
     user = interaction.user.mention
-    await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
+    # subtracting 2 for the newline characters
+    max_message_length = 2000 - len(user) - len(message) - 2
+    chunks = [response[i:i+max_message_length]
+              for i in range(0, len(response), max_message_length)]
+    for chunk in chunks:
+        await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
+
     return
 
 """
-@client.tree.command(name="attack", description="Hackear a El Ordenador")
+@client.tree.command(name="otro comando", description="Establecer otro comando")
 async def chat(interaction: discord.Interaction, *, message: str):
-    global memory2
-    await interaction.response.send_message("Procesando...", ephemeral=True, delete_after=3)
+    global chat_history2
+    global bot_context2
+    notes = collect_notes()
+    await interaction.response.send_message("Escribiendo...", ephemeral=True, delete_after=3)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        temperature=1.2,
+        temperature=1.1,
         messages=[
-            {"role": "assistant", "content": memory2},
+            {"role": "system", "content": f"{bot_context}"},
+            {"role": "assistant", "content": f"{notes}"},
+            {"role": "user", "content": chat_history},
             {"role": "user", "content": message}
         ]
     )
+    chat_history += message + "\n"
     response = response['choices'][0]['message']['content']
-    memory2 += message + "\n"
+    # Log a message
+    logging.info(response)
     user = interaction.user.mention
-    await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
+    # subtracting 2 for the newline characters
+    max_message_length = 2000 - len(user) - len(message) - 2
+    chunks = [response[i:i+max_message_length]
+              for i in range(0, len(response), max_message_length)]
+    for chunk in chunks:
+        await interaction.channel.send("\n\n" + user + ": " + message + "\n\n@ORDENADOR: " + response + "\n\n >")
+
     return
 """
 
@@ -79,6 +110,7 @@ async def chat(interaction: discord.Interaction, *, message: str):
 # run the bot
 if __name__ == '__main__':
     load_dotenv()
+    path_to_notes = os.getenv("PATH_TO_NOTES")
     discord_token = os.getenv("DISCORD_BOT_TOKEN")
     openai.api_key = os.getenv("OPENAI_API_KEY")
     client.run(discord_token)

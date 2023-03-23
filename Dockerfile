@@ -12,4 +12,6 @@ COPY npbot_discord.py .
 
 COPY mycontext.py .
 
+COPY mdtojson.py .
+
 CMD ["python", "npbot_discord.py", "mycontext.py"].
