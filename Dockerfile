@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
 
-WORKDIR /chatgpturbot
+WORKDIR /npbot_discord
 
 COPY requirements.txt .
 
@@ -8,6 +8,8 @@ RUN apk add --no-cache --virtual .build-deps build-base && \
     pip install -r requirements.txt && \
     apk del .build-deps
 
-COPY chatgpturbot.py .
+COPY npbot_discord.py .
 
-CMD ["python", "chatgpturbot.py"]
+COPY mycontext.py .
+
+CMD ["python", "npbot_discord.py", "mycontext.py"].

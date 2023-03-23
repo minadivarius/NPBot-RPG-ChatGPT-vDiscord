@@ -3,15 +3,15 @@ from discord import app_commands
 import openai
 import requests
 import os
-import myprompts
+import mycontext
 from dotenv import load_dotenv
 
 
 # initialize memory
-memory1 = myprompts.myprompt1
+memory1 = mycontext.prompt1
 
 """
-memory2 = myprompts.myprompt2
+memory2 = mycontext.prompt2
 """
 
 
@@ -43,7 +43,7 @@ async def chat(interaction: discord.Interaction, *, message: str):
     await interaction.response.send_message("Escribiendo...", ephemeral=True, delete_after=3)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        temperature=1,
+        temperature=1.2,
         messages=[
             {"role": "assistant", "content": memory1},
             {"role": "user", "content": message}
@@ -62,7 +62,7 @@ async def chat(interaction: discord.Interaction, *, message: str):
     await interaction.response.send_message("Procesando...", ephemeral=True, delete_after=3)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        temperature=1,
+        temperature=1.2,
         messages=[
             {"role": "assistant", "content": memory2},
             {"role": "user", "content": message}

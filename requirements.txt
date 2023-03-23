@@ -1,4 +1,3 @@
 discord
 openai
 python-dotenv
-docx2txt
