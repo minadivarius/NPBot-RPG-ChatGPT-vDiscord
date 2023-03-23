@@ -1,3 +1,3 @@
 docker build -t npbot_discord .
 
-docker run -d --name npbot_discord --env DISCORD_BOT_TOKEN="MTA4ODQzMjM2ODY0NzQwNTYxNw.G7RK20.AnpevXv3IvFJkpTW1UvYIxa2prbLWI3cF6S388" --env OPENAI_API_KEY="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" npbot_discord:latest
+docker run -d --name npbot_discord --env DISCORD_BOT_TOKEN="TU TOKEN AQUÍ" --env OPENAI_API_KEY="TU CLAVE AQUÍ" npbot_discord:latest
