@@ -88,6 +88,8 @@ Existe la posibilidad de **generar otros comandos** para el bot, lo que puede se
 
 Ten en cuenta que para que los jugadores puedan interactuar con el bot, tendrán que hacerlo sí o sí a través del comando "/chat" (o como lo hayas llamado). Si escriben únicamente en la caja de texto de Discord, el bot no recibirá ningún mensaje. Esto es bastante incómodo, pero de momento no sé cómo hacer que funcione bien con los mensajes normales.
 
+El bot original contaba con un comando para usar la API de Whisper (con la que puedes transcribir un audio a texto), pero ha sido eliminado al no encontrarle utilidad para su uso en juegos de rol.
+
 
 
 ## Ejecutando el bot
