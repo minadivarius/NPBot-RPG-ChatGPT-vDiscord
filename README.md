@@ -1,5 +1,7 @@
 # NPBot - Discord Version
 
+![](https://storage.ko-fi.com/cdn/useruploads/display/994d8c2c-a36c-47f7-adec-47da169f5034_npbot.png)
+
 Este bot permite interactuar con **Personajes No Jugadores (NPCs) para juegos de rol y larp** mediante un bot de Discord a través de la API de ChatGPT (en principio, en su modelo GPT-3.5-turbo, ya que aún no he tenido acceso a GPT-4).
 
 Es una adaptación específica para este uso, pero si queréis utilizarlo de manera más generalizada, podéis echar un vistazo a la [wiki](https://github.com/tplesetz/chatgpt-turbo-discord-bot/wiki) del desarrollador original.
